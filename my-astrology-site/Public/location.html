@@ -1,0 +1,31 @@
+<h1>请输入您的出生地</h1>
+<input type="text" id="location" placeholder="例如：北京市朝阳区">
+<button onclick="saveLocation()">完成</button>
+
+<script>
+  function saveLocation() {
+    const location = document.getElementById('location').value;
+    localStorage.setItem('userLocation', location);
+    
+    // 跳转到对话页前，先将数据存入数据库
+    const userData = {
+      name: localStorage.getItem('userName'),
+      birthday: localStorage.getItem('userBirthday'),
+      location: location
+    };
+    
+    // 调用 Supabase 保存数据（需替换为你的 Supabase 配置）
+    const SUPABASE_URL = '你的 Supabase Project URL';
+    const SUPABASE_KEY = '你的 Supabase anon key';
+    
+    const { createClient } = supabase;
+    const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
+    
+    supabaseClient
+      .from('users')
+      .insert([userData])
+      .then(() => {
+        window.location.href = 'chat.html';
+      });
+  }
+</script>

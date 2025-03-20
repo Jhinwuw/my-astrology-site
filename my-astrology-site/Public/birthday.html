@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>请输入您的出生日期</title>
+</head>
+
+<body>
+    <!-- 标题：请输入您的出生日期 -->
+    <h1>请输入您的出生日期</h1>
+    <!-- 日期输入框，用于选择出生年月日 -->
+    <input type="date" id="birthday">
+    <!-- 小时选择框，范围从 00 到 23 -->
+    <select id="hour">
+        <!-- 使用循环生成 00 到 23 的选项 -->
+        <script>
+            for (let i = 0; i < 24; i++) {
+                let value = i.toString().padStart(2,  '0');
+                document.write(`<option  value="${value}">${value}</option>`);
+            }
+        </script>
+    </select>
+    <!-- 分钟选择框，范围从 00 到 59 -->
+    <select id="minute">
+        <!-- 使用循环生成 00 到 59 的选项 -->
+        <script>
+            for (let i = 0; i < 60; i++) {
+                let value = i.toString().padStart(2,  '0');
+                document.write(`<option  value="${value}">${value}</option>`);
+            }
+        </script>
+    </select>
+    <!-- 下一步按钮，点击调用 saveBirthday 函数 -->
+    <button onclick="saveBirthday()">下一步</button>
+
+    <script>
+        function saveBirthday() {
+            // 获取日期输入框的值
+            const birthday = document.getElementById('birthday').value; 
+            // 获取小时选择框的值
+            const hour = document.getElementById('hour').value; 
+            // 获取分钟选择框的值
+            const minute = document.getElementById('minute').value; 
+            // 拼接完整的出生日期信息，包含年月日、小时和分钟
+            const fullBirthday = `${birthday} ${hour}:${minute}`;
+            // 将完整的出生日期信息保存到本地存储
+            localStorage.setItem('userBirthday',  fullBirthday);
+            // 跳转到 location.html  页面
+            window.location.href  = 'location.html'; 
+        }
+    </script>
+</body>
+
+</html>

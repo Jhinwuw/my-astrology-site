@@ -1,0 +1,24 @@
+<!-- chat.html -->
+<div id="chat-box" style="height: 400px; overflow-y: scroll;"></div>
+<input type="text" id="message-input">
+<button onclick="sendMessage()">发送</button>
+
+<script>
+  async function sendMessage() {
+    const message = document.getElementById('message-input').value;
+    const response = await fetch('/api/ask', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        message: message,
+        userId: '当前用户ID（需从 Supabase 获取）'
+      })
+    });
+    
+    const data = await response.json();
+    document.getElementById('chat-box').innerHTML += `
+      <div>你：${message}</div>
+      <div>AI：${data.reply}</div>
+    `;
+  }
+</script>
